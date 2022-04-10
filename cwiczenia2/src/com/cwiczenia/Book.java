@@ -1,10 +1,13 @@
 package com.cwiczenia;
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Book {
+
+    private static int Licznik = 1;
+
+    //==========================================
 
     private long ID;
     private String bookName;
@@ -12,14 +15,16 @@ public class Book {
     private Lang language;
     private LocalDate publishDate;
     private int borrowCount;
-    private ArrayList<String> Author = new ArrayList<>();
+    public Person osobaWypozyczajaca;
+    private ArrayList<Person> authors = new ArrayList<>();
 
-    public ArrayList<String> getAuthor() {
-        return Author;
-    }
-
-    public void setAuthor(ArrayList<String> author) {
-        Author = author;
+    public Book(String bookName, Genre genre, Lang language, LocalDate publishDate) {
+        setBookName(bookName);
+        setGenre(genre);
+        setLanguage(language);
+        setPublishDate(publishDate);
+        ID = Licznik;
+        Licznik++;
     }
 
     public long getID() {
@@ -46,10 +51,6 @@ public class Book {
         return borrowCount;
     }
 
-    public void setID(long ID) {
-        this.ID = ID;
-    }
-
     public void setBookName(String bookName) {
         this.bookName = bookName;
     }
@@ -70,15 +71,22 @@ public class Book {
         this.borrowCount = borrowCount;
     }
 
-    public Book(){
-
+    public void addAuthor(Person p) {
+        authors.add(p);
     }
-    public Book(String bookName, Genre genre, Lang language, LocalDate publishDate) {
-        setBookName(bookName);
-        setGenre(genre);
-        setLanguage(language);
-        setPublishDate(publishDate);
 
+    public void borrowBook(Person osobaWypozyczajaca) {
+        this.osobaWypozyczajaca = osobaWypozyczajaca;
+        osobaWypozyczajaca.wypozyczonaKsiazka = this;
+    }
+
+    public void placeBack() {
+        if (osobaWypozyczajaca == null) {
+            throw new IllegalArgumentException("Ksiażka nie jest wypozyczona, wiec nie moze zostac zwrocona");
+        }
+
+        osobaWypozyczajaca.oddajKsiazke();
+        osobaWypozyczajaca = null;
     }
 
 }

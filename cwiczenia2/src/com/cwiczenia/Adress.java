@@ -7,6 +7,21 @@ public class Adress {
     private int house;
     private int flat;
 
+    public Adress(String country, String city, String street, int house, int flat) {
+        this.country = country;
+        this.city = city;
+        this.street = street;
+        this.house = house;
+        this.flat = flat;
+    }
+
+    public Adress(String country, String city, String street, int house) {
+        this.country = country;
+        this.city = city;
+        this.street = street;
+        this.house = house;
+    }
+
     public String getCountry() {
         return country;
     }
@@ -47,11 +62,4 @@ public class Adress {
         this.flat = flat;
     }
 
-    public Adress(String country, String city, String street, int house, int flat) {
-        this.country = country;
-        this.city = city;
-        this.street = street;
-        this.house = house;
-        this.flat = flat;
-    }
 }
