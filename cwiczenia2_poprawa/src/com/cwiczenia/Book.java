@@ -15,37 +15,16 @@ public class Book {
     private ArrayList<Person> authors = new ArrayList<>();
     private Person personWhoBorrowBook;
     private boolean isAvailable = true;
-    private int bookAge;
-    private Person author;
-
-    public Book(String bookName, Genre genre, Lang language, LocalDate publishDate) {
-        this.setBookName(bookName);
-        this.setGenre(genre);
-        this.setLanguage(language);
-        this.setPublishDate(publishDate);
-        ID = Counter;
-        Counter++;
-    }
+    private Integer bookAge;
 
     public Book (String bookName, Genre genre, Lang language, LocalDate publishDate, Person author){
         this.setBookName(bookName);
         this.setGenre(genre);
         this.setLanguage(language);
         this.setPublishDate(publishDate);
-        this.setAuthor(author);
+        this.addAuthor(author);
         ID = Counter;
         Counter++;
-    }
-
-    public Person getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(Person author) {
-        if(author == null){
-            throw new IllegalArgumentException("Person cannot be null.");
-        }
-        this.author = author;
     }
 
     public int getID() {
@@ -104,16 +83,21 @@ public class Book {
     }
 
     public void addAuthor(Person person){
+
+
         authors.add(person);
+        person.dodajKsiazke(this);
     }
 
     public int getPublishAge(){
-        bookAge = LocalDate.now().getYear() - publishDate.getYear();
+        if(bookAge==null) {
+            bookAge = LocalDate.now().getYear() - publishDate.getYear();
+        }
         return bookAge;
     }
 
     public Person BorrowBook(Person personWhoBorrowBook){
-        if(isAvailable == false){
+        if(!isAvailable){
             throw new IllegalArgumentException("Book is not available");
         }
         if(personWhoBorrowBook.getBorrowedBook() != null){
@@ -126,7 +110,7 @@ public class Book {
         return personWhoBorrowBook;
     }
 
-    public void PlaceBook(){
+    public void PlaceBack(){
         if (personWhoBorrowBook == null) {
             throw new IllegalArgumentException("Book cannot be return because it is available in the library.");
         }

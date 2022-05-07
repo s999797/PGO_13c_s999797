@@ -7,7 +7,6 @@ public class Person {
     private String name;
     private String surname;
     private LocalDate dateOfBirth;
-    private int personAge;
     private ArrayList<Book> myBooks = new ArrayList<>();
     private Address address;
     private Book borrowedBook;
@@ -69,18 +68,21 @@ public class Person {
     }
 
     public int getBirthAge(){
-        personAge = LocalDate.now().getYear() - dateOfBirth.getYear();
-        return personAge;
+        return LocalDate.now().getYear() - dateOfBirth.getYear();
     }
 
     public void addBook(Book book){
         myBooks.add(book);
     }
 
+    public void  dodajKsiazke(Book b){
+        this.myBooks.add(b);
+        b.addAuthor(this);
+    }
+
     public Book PublishBook(String bookName, Genre genre, Lang language, LocalDate publishDate){
-        Book book = new Book(bookName, genre, language, publishDate);
-        this.myBooks.add(book);
-        book.addAuthor(this);
+        Book book = new Book(bookName, genre, language, publishDate, this);
+        this.dodajKsiazke(book);
         return book;
     }
 
