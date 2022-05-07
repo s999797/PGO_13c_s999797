@@ -7,7 +7,7 @@ public class Main {
             System.out.println("tu");
             return;
         }
-        
+
 
 
         System.out.println("coś");
