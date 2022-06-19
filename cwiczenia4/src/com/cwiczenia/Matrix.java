@@ -3,6 +3,7 @@ package com.cwiczenia;
 public class Matrix {
 
     private int [][] matrix;
+
     private static int [][] tmpMatrix;
     private static int counter;
 
@@ -50,6 +51,7 @@ public class Matrix {
     public static Matrix create(){
         counter = 0;
         Matrix matrix = new Matrix(tmpMatrix);
+        tmpMatrix=null;
         return matrix;
     }
     public void print(){
